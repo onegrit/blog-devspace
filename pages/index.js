@@ -1,11 +1,9 @@
-import Head from 'next/head'
-import Image from 'next/image'
-import styles from '../styles/Home.module.css'
+import Layout from '../components/Layout'
 
 export default function Home() {
   return (
-    <div className='bg-blue-700'>
-      <h1>Hello world!</h1>
-    </div>
+    <Layout>
+      <h1>Welcome to my blog.</h1>
+    </Layout>
   )
 }
