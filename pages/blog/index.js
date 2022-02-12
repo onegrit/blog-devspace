@@ -4,6 +4,7 @@ import Link from 'next/link'
 import path from 'path'
 import Layout from '../../components/Layout'
 import Post from '../../components/Post'
+import { sortByDate } from '../../utils/index'
 
 export default function BlogPage({ posts }) {
   console.log('BlogPage: ', posts)
@@ -39,6 +40,6 @@ export async function getStaticProps() {
 
   // console.log(posts)
   return {
-    props: { posts },
+    props: { posts: posts.sort(sortByDate).slice(0, 6) },
   }
 }
