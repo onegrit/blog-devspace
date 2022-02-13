@@ -6,6 +6,7 @@ import Layout from '../../../components/Layout'
 import Post from '../../../components/Post'
 import { sortByDate } from '../../../utils/index'
 import { POSTS_PER_PAGE } from '../../../config/index'
+import Pagination from '../../../components/Pagination'
 
 export default function BlogPage({ posts, numPages, currentPage }) {
   // console.log('BlogPage: ', posts)
@@ -17,6 +18,7 @@ export default function BlogPage({ posts, numPages, currentPage }) {
           <Post post={post} key={idx} />
         ))}
       </div>
+      <Pagination currentPage={currentPage} numPages={numPages} />
     </Layout>
   )
 }
@@ -27,7 +29,7 @@ export async function getStaticPaths() {
 
   let paths = []
 
-  for (let i = 0; i < numPages; i++) {
+  for (let i = 0; i <= numPages; i++) {
     paths.push({
       params: { page_index: i.toString() },
     })
