@@ -2,9 +2,9 @@ import fs from 'fs'
 import matter from 'gray-matter'
 import Link from 'next/link'
 import path from 'path'
-import Layout from '../components/Layout'
-import Post from '../components/Post'
-import { sortByDate } from '../utils/index'
+import Layout from '@/components/Layout'
+import Post from '@/components/Post'
+import { sortByDate } from '@/utils/index'
 
 export default function HomePage({ posts }) {
   // console.log('BlogPage: ', posts)

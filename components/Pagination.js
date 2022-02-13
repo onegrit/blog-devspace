@@ -1,5 +1,4 @@
 import Link from 'next/link'
-import React from 'react'
 /**
  * numPages: Total Pages
  * @param {currentPage} int
