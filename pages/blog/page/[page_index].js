@@ -7,7 +7,7 @@ import Post from '../../../components/Post'
 import { sortByDate } from '../../../utils/index'
 import { POSTS_PER_PAGE } from '../../../config/index'
 
-export default function BlogPage({ posts }) {
+export default function BlogPage({ posts, numPages, currentPage }) {
   // console.log('BlogPage: ', posts)
   return (
     <Layout>
@@ -33,7 +33,7 @@ export async function getStaticPaths() {
     })
   }
 
-  console.log('paths: ', paths)
+  // console.log('paths: ', paths)
 
   return {
     paths,
@@ -41,7 +41,9 @@ export async function getStaticPaths() {
   }
 }
 
-export async function getStaticProps() {
+export async function getStaticProps({ params }) {
+  const page = parseInt((params && params.page_index) || 1)
+
   const files = fs.readdirSync(path.join('posts'))
   const posts = files.map((filename) => {
     const slug = filename.replace('.md', '')
@@ -53,8 +55,13 @@ export async function getStaticProps() {
     return { slug, frontmatter }
   })
 
+  const numPages = Math.ceil(files.length / POSTS_PER_PAGE)
+  const pageIndex = page - 1
+  const orderedPosts = posts
+    .sort(sortByDate)
+    .slice(pageIndex * POSTS_PER_PAGE, (pageIndex + 1) * POSTS_PER_PAGE)
   // console.log(posts)
   return {
-    props: { posts: posts.sort(sortByDate) },
+    props: { posts: orderedPosts, numPages, currentPage: page },
   }
 }
