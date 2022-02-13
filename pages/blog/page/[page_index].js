@@ -2,11 +2,12 @@ import fs from 'fs'
 import matter from 'gray-matter'
 import Link from 'next/link'
 import path from 'path'
-import Layout from '../components/Layout'
-import Post from '../components/Post'
-import { sortByDate } from '../utils/index'
+import Layout from '../../../components/Layout'
+import Post from '../../../components/Post'
+import { sortByDate } from '../../../utils/index'
+import { POSTS_PER_PAGE } from '../../../config/index'
 
-export default function HomePage({ posts }) {
+export default function BlogPage({ posts }) {
   // console.log('BlogPage: ', posts)
   return (
     <Layout>
@@ -16,14 +17,28 @@ export default function HomePage({ posts }) {
           <Post post={post} key={idx} />
         ))}
       </div>
-
-      <Link href='/blog'>
-        <a className='block text-center border border-gray-500 text-gray-800 rounded-md py-4 my-5 transition duration-500 ease select-none hover:text-white hover:bg-gray-900 focus:outline-none focus:shadow-outline w-full'>
-          All Posts
-        </a>
-      </Link>
     </Layout>
   )
+}
+
+export async function getStaticPaths() {
+  const files = fs.readdirSync(path.join('posts'))
+  const numPages = Math.ceil(files.length / POSTS_PER_PAGE)
+
+  let paths = []
+
+  for (let i = 0; i < numPages; i++) {
+    paths.push({
+      params: { page_index: i.toString() },
+    })
+  }
+
+  console.log('paths: ', paths)
+
+  return {
+    paths,
+    fallback: false,
+  }
 }
 
 export async function getStaticProps() {
@@ -40,6 +55,6 @@ export async function getStaticProps() {
 
   // console.log(posts)
   return {
-    props: { posts: posts.sort(sortByDate).slice(0, 6) },
+    props: { posts: posts.sort(sortByDate) },
   }
 }

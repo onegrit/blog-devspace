@@ -37,7 +37,6 @@ export default function Post({ post }) {
             src={post.frontmatter.author_image}
             className='mx-4 w-10 h-10 object-cover rounded-full hidden sm:block'
             alt=''
-            srcset=''
           />
           <h3 className='text-gray-700 font-bold'>{post.frontmatter.author}</h3>
         </div>
