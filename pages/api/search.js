@@ -20,7 +20,7 @@ export default function handler(req, res) {
 
       const { data: frontmatter } = matter(markdownWithMeta)
 
-      return { frontmatter }
+      return { slug, frontmatter }
     })
   }
 
@@ -31,7 +31,7 @@ export default function handler(req, res) {
       category.toLowerCase().indexOf(req.query.q) != -1
   )
 
-  console.log('Search Results: ', results)
+  // console.log('Search Results: ', results)
 
   res.status(200).json(JSON.stringify({ results }))
 }
