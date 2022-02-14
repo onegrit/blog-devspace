@@ -1,8 +1,8 @@
-import fs from 'fs'
 import matter from 'gray-matter'
 import { marked } from 'marked'
 import Link from 'next/link'
 import path from 'path'
+import fs from 'fs'
 import CategoryLabel from '@/components/CategoryLabel'
 import Layout from '@/components/Layout'
 
@@ -41,6 +41,7 @@ export default function PostPage({
 
 export async function getStaticPaths() {
   const files = fs.readdirSync(path.join('posts'))
+
   const paths = files.map((filename) => ({
     params: { slug: filename.replace('.md', '') },
   }))
