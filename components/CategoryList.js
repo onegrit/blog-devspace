@@ -8,7 +8,14 @@ export default function CategoryList({ categories }) {
       </h3>
       <ul className='divide-y divide-gray-300'>
         {categories.map((cat, idx) => (
-          <Link key={idx} href={`/blog/category/${cat.toLowerCase()}`}>
+          // <Link key={idx} href={`/blog/category/${cat.toLowerCase()}`}>
+          <Link
+            key={idx}
+            href={{
+              pathname: '/blog/category/[category_name]',
+              query: { category_name: cat.toLowerCase() },
+            }}
+          >
             <li className='p-4 cursor-pointer hover:bg-gray-50'>{cat}</li>
           </Link>
         ))}

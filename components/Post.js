@@ -28,7 +28,8 @@ export default function Post({ post, compact }) {
       </div>
 
       <div className='mt-2'>
-        <Link href={`/blog/${post.slug}`}>
+        {/* <Link href={`/blog/${post.slug}`}> */}
+        <Link href={{ pathname: '/blog/[slug]', query: { slug: post.slug } }}>
           <a className='text-gray-700 text-2xl font-bold'>
             {post.frontmatter.title}
           </a>
@@ -38,7 +39,8 @@ export default function Post({ post, compact }) {
 
       {!compact && (
         <div className='flex justify-between items-center mt-6'>
-          <Link href={`/blog/${post.slug}`}>
+          {/* <Link href={`/blog/${post.slug}`}> */}
+          <Link href={{ pathname: '/blog/[slug]', query: { slug: post.slug } }}>
             <a className='text-gray-900 hover:text-blue-600'>Read More</a>
           </Link>
           <div className='flex items-center'>
